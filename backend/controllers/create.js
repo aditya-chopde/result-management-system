@@ -43,7 +43,68 @@ const handleCreateStudent = async (req, res) => {
     }
 }
 
+const handleGetSingleSchool = async (req, res)=>{
+    try {
+        const {id} = req.params;
+        console.log(id)
+        const getSingleSchool = await School.findById(id)
+        return res.json({success: true, message: "School fetched successfully", getSingleSchool})
+    } catch (err) {
+        return res.json({success: false, message: "Error Occurred", error: err.message})
+    }
+}
+
+const handleGetSingleStudent = async (req, res)=>{
+    try {
+        const {id} = req.params;
+        console.log(id)
+        const getSingleStudent = await Student.findById(id)
+        return res.json({success: true, message: "Student fetched successfully", getSingleStudent})
+    } catch (err) {
+        return res.json({success: false, message: "Error Occurred", error: err.message})
+    }
+}
+
+const handleSchoolEdit = async (req, res)=>{
+    try {
+        const {id} = req.params;
+        const { schoolName, email, location, password } = req.body;
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(password, saltRounds);
+        const editSchool = await School.findByIdAndUpdate(id, {
+            schoolName,
+            email,
+            location,
+            password: hashedPassword,
+        })
+
+        return res.json({success: true, message: "School Edited Successfully", editSchool})
+    } catch (err) {
+        return res.json({success: false, message: "Error Occurred", error: err.message})
+    }
+}
+
+const handleStudentEdit = async (req, res)=>{
+    try {
+        const {id} = req.params;
+        const { studentName, studentRollNumber, studentOf } = req.body;
+        const editStudent = await Student.findByIdAndUpdate(id, {
+            studentName,
+            studentRollNumber,
+            studentOf,
+        })
+
+        return res.json({success: true, message: "Student Edited Successfully", editStudent})
+    } catch (err) {
+        return res.json({success: false, message: "Error Occurred", error: err.message})
+    }
+}
+
 module.exports = {
     handleCreateSchool,
     handleCreateStudent,
+    handleGetSingleSchool,
+    handleGetSingleStudent,
+    handleSchoolEdit,
+    handleStudentEdit,
 }
