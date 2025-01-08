@@ -1,9 +1,10 @@
 const express = require("express");
 const connectDb = require("./connect");
 const home = require("./routes/home");
-const create = require("./routes/create")
+const create = require("./routes/create");
 const port = 3000;
 const app = express()
+require("dotenv").config()
 
 //Middlewares
 app.use(express.json())
