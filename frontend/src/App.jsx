@@ -5,6 +5,7 @@ import CreateSchool from './components/CreateSchool';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
 import AddStudent from './components/AddStudent';
+import EditStudent from './components/EditStudent';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -18,6 +19,7 @@ function App() {
         <Route path="/login" element={<Login/>} />
         <Route path="/dashboard/:id" element={<Dashboard/>} />
         <Route path="/add/student/:id" element={<AddStudent/>} />
+        <Route path="/edit/student/:id" element={<EditStudent/>} />
       </Routes>
     </Router>
     </>

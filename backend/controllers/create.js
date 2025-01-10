@@ -68,7 +68,7 @@ const handleGetSingleSchool = async (req, res) => {
     try {
         const { id } = req.params;
         console.log(id)
-        const getSingleSchool = await School.findById(id)
+        const getSingleSchool = await School.find({_id: id})
         return res.json({ success: true, message: "School fetched successfully", getSingleSchool })
     } catch (err) {
         return res.json({ success: false, message: "Error Occurred", error: err.message })
@@ -78,8 +78,7 @@ const handleGetSingleSchool = async (req, res) => {
 const handleGetSingleStudent = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id)
-        const getSingleStudent = await Student.findById(id)
+        const getSingleStudent = await Student.find({_id: id})
         return res.json({ success: true, message: "Student fetched successfully", getSingleStudent })
     } catch (err) {
         return res.json({ success: false, message: "Error Occurred", error: err.message })
@@ -108,11 +107,10 @@ const handleSchoolEdit = async (req, res) => {
 const handleStudentEdit = async (req, res) => {
     try {
         const { id } = req.params;
-        const { studentName, studentRollNumber, studentOf } = req.body;
+        const { studentName, studentRollNumber } = req.body;
         const editStudent = await Student.findByIdAndUpdate(id, {
             studentName,
             studentRollNumber,
-            studentOf,
         })
 
         return res.json({ success: true, message: "Student Edited Successfully", editStudent })
