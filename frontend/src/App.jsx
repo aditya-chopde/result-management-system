@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import CreateSchool from './components/CreateSchool';
 import Dashboard from './components/Dashboard';
 import Login from './components/Login';
+import AddStudent from './components/AddStudent';
 
 function App() {
   const [count, setCount] = useState(0)
@@ -16,6 +17,7 @@ function App() {
         <Route path="/" element={<CreateSchool/>} />
         <Route path="/login" element={<Login/>} />
         <Route path="/dashboard/:id" element={<Dashboard/>} />
+        <Route path="/add/student/:id" element={<AddStudent/>} />
       </Routes>
     </Router>
     </>
