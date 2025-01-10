@@ -5,3 +5,7 @@
 body{
     @apply font-poppins
 }
+
+.input-register-school{
+    @apply border-black border px-3 py-2 my-2 outline-none rounded-sm w-full
+}

@@ -2,11 +2,13 @@ const express = require("express");
 const connectDb = require("./connect");
 const home = require("./routes/home");
 const create = require("./routes/create");
+const cors = require("cors")
 const port = 3000;
 const app = express()
 require("dotenv").config()
 
 //Middlewares
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({extended: false}))
 

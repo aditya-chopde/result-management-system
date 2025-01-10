@@ -28,6 +28,27 @@ const handleCreateSchool = async (req, res) => {
     }
 }
 
+const handleLoginSchool = async (req, res)=>{
+    try {
+        const { schoolName, email, password } = req.body;
+        const isExists = await School.findOne({ schoolName, email })
+        if (isExists) {
+            const hashedPassword = isExists.password;
+            const isMatch = await bcrypt.compare(password, hashedPassword);
+            if(isMatch){
+                const token = jwt.sign({ email, hashedPassword }, process.env.SECRET_KEY)
+                return res.json({success: true, message: "School Found", school: isExists, token})
+            }else{
+                return res.json({success: false, message: "School Not Found"})
+            }
+        } else {
+            return res.json({ success: false, message: "School Not Exists"})
+        }
+    } catch (err) {
+        return res.json({succes: false, message: "Error Occurred", error: err.message})
+    }
+}
+
 const handleCreateStudent = async (req, res) => {
     try {
         const { studentName, studentRollNumber, studentOf } = req.body;
@@ -102,6 +123,7 @@ const handleStudentEdit = async (req, res)=>{
 
 module.exports = {
     handleCreateSchool,
+    handleLoginSchool,
     handleCreateStudent,
     handleGetSingleSchool,
     handleGetSingleStudent,
