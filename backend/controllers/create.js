@@ -124,7 +124,6 @@ const handleStudentEdit = async (req, res) => {
 const getStudents = async (req, res) => {
     try {
         const { id } = req.params;
-        console.log(id)
         const getStudents = await Student.find({studentOf: id})
         return res.json({success: true, message: "Fetched all Students", students: getStudents});
     } catch (err) {
