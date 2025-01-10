@@ -27,7 +27,9 @@ const Login = () => {
         console.log(res.data.success)
         if(res.data.success){
           const token = res.data.token
+          const schoolId = res.data.school._id
           localStorage.setItem("token", token)
+          localStorage.setItem("schoolId", schoolId)
           navigate(`/dashboard/${token}`)
         }
         else{

@@ -27,7 +27,9 @@ const CreateSchool = () => {
       .then((res) => {
         setIsDisabled(false);
         const token = res.data.token
+        const schoolId = res.data.createSchool._id
         localStorage.setItem("token", token)
+        localStorage.setItem("schoolId", schoolId)
         navigate(`/dashboard/${token}`)
         console.log(res);
       })
