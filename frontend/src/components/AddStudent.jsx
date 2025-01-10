@@ -6,7 +6,7 @@ const AddStudent = () => {
   const token = localStorage.getItem("token");
   const navigate = useNavigate();
   const { id } = useParams();
-  const [name, setName] = useState("");
+  const [name, setName] = useState(""); 
   const [rollNumber, setRollNumber] = useState("");
   const schoolId = localStorage.getItem("schoolId");
 

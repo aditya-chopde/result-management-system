@@ -28,24 +28,24 @@ const handleCreateSchool = async (req, res) => {
     }
 }
 
-const handleLoginSchool = async (req, res)=>{
+const handleLoginSchool = async (req, res) => {
     try {
         const { schoolName, email, password } = req.body;
         const isExists = await School.findOne({ schoolName, email })
         if (isExists) {
             const hashedPassword = isExists.password;
             const isMatch = await bcrypt.compare(password, hashedPassword);
-            if(isMatch){
+            if (isMatch) {
                 const token = jwt.sign({ email, hashedPassword }, process.env.SECRET_KEY)
-                return res.json({success: true, message: "School Found", school: isExists, token})
-            }else{
-                return res.json({success: false, message: "School Not Found"})
+                return res.json({ success: true, message: "School Found", school: isExists, token })
+            } else {
+                return res.json({ success: false, message: "School Not Found" })
             }
         } else {
-            return res.json({ success: false, message: "School Not Exists"})
+            return res.json({ success: false, message: "School Not Exists" })
         }
     } catch (err) {
-        return res.json({succes: false, message: "Error Occurred", error: err.message})
+        return res.json({ succes: false, message: "Error Occurred", error: err.message })
     }
 }
 
@@ -64,31 +64,31 @@ const handleCreateStudent = async (req, res) => {
     }
 }
 
-const handleGetSingleSchool = async (req, res)=>{
+const handleGetSingleSchool = async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         console.log(id)
         const getSingleSchool = await School.findById(id)
-        return res.json({success: true, message: "School fetched successfully", getSingleSchool})
+        return res.json({ success: true, message: "School fetched successfully", getSingleSchool })
     } catch (err) {
-        return res.json({success: false, message: "Error Occurred", error: err.message})
+        return res.json({ success: false, message: "Error Occurred", error: err.message })
     }
 }
 
-const handleGetSingleStudent = async (req, res)=>{
+const handleGetSingleStudent = async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         console.log(id)
         const getSingleStudent = await Student.findById(id)
-        return res.json({success: true, message: "Student fetched successfully", getSingleStudent})
+        return res.json({ success: true, message: "Student fetched successfully", getSingleStudent })
     } catch (err) {
-        return res.json({success: false, message: "Error Occurred", error: err.message})
+        return res.json({ success: false, message: "Error Occurred", error: err.message })
     }
 }
 
-const handleSchoolEdit = async (req, res)=>{
+const handleSchoolEdit = async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         const { schoolName, email, location, password } = req.body;
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(password, saltRounds);
@@ -99,15 +99,15 @@ const handleSchoolEdit = async (req, res)=>{
             password: hashedPassword,
         })
 
-        return res.json({success: true, message: "School Edited Successfully", editSchool})
+        return res.json({ success: true, message: "School Edited Successfully", editSchool })
     } catch (err) {
-        return res.json({success: false, message: "Error Occurred", error: err.message})
+        return res.json({ success: false, message: "Error Occurred", error: err.message })
     }
 }
 
-const handleStudentEdit = async (req, res)=>{
+const handleStudentEdit = async (req, res) => {
     try {
-        const {id} = req.params;
+        const { id } = req.params;
         const { studentName, studentRollNumber, studentOf } = req.body;
         const editStudent = await Student.findByIdAndUpdate(id, {
             studentName,
@@ -115,7 +115,18 @@ const handleStudentEdit = async (req, res)=>{
             studentOf,
         })
 
-        return res.json({success: true, message: "Student Edited Successfully", editStudent})
+        return res.json({ success: true, message: "Student Edited Successfully", editStudent })
+    } catch (err) {
+        return res.json({ success: false, message: "Error Occurred", error: err.message })
+    }
+}
+
+const getStudents = async (req, res) => {
+    try {
+        const { id } = req.params;
+        console.log(id)
+        const getStudents = await Student.find({studentOf: id})
+        return res.json({success: true, message: "Fetched all Students", students: getStudents});
     } catch (err) {
         return res.json({success: false, message: "Error Occurred", error: err.message})
     }
@@ -129,4 +140,5 @@ module.exports = {
     handleGetSingleStudent,
     handleSchoolEdit,
     handleStudentEdit,
+    getStudents,
 }
