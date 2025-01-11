@@ -19,6 +19,13 @@ const AddResult = () => {
     });
   };
 
+  const handleDeleteSubject = async (id)=>{
+    await api.post(`/result/delete/${id}`).then((res)=>{
+        alert(res.data.message)
+        getAllSubject()
+    })
+  }
+
   const handleSubmit = async (e) => {
     setToggleModal(!toggleModal);
     e.preventDefault();
@@ -133,6 +140,7 @@ const AddResult = () => {
                   <th className="border-all">Subject Name</th>
                   <th className="border-all">Marks Scored </th>
                   <th className="border-all">Total Marks</th>
+                  <th className="border-all">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -141,6 +149,9 @@ const AddResult = () => {
                     <td className="border-all">{item.subjectName}</td>
                     <td className="border-all">{item.subjectTotalMarks}</td>
                     <td className="border-all">{item.marksScored}</td>
+                    <td className="border-all">
+                        <button onClick={()=> handleDeleteSubject(item._id)} className="bg-red-500 px-3 py-1 my-1 text-white cursor-pointer">Delete</button>
+                    </td>
                   </tr>
                 ))}
               </tbody>

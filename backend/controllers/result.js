@@ -25,7 +25,18 @@ const getAllSubject = async (req, res)=>{
     }
 }
 
+const handleSubjectDelete = async (req, res)=>{
+    try {
+        const {id} = req.params;
+        const deleteData = await Result.findByIdAndDelete(id)
+        return res.json({success: true, message: "Data Deleted", deleteData: deleteData})
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocuured", error: error.message})
+    }
+}
+
 module.exports = {
     createResult,
     getAllSubject,
+    handleSubjectDelete,
 }
