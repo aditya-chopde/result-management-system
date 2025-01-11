@@ -1,25 +1,17 @@
 const mongoose = require("mongoose")
 
 const resultSchema = new mongoose.Schema({
-    engMarks: {
-        type: Number,
+    subjectName: {
+        type: String, 
         required: true,
     },
-    mathMarks: {
-        type: Number,
+    subjectTotalMarks: {
+        type: String,
         required: true,
     },
-    sciMarks: {
-        type: Number,
-        required: true,
-    },
-    socailMarks: {
-        type: Number,
-        required: true,
-    },
-    marMarks: {
-        type: Number,
-        required: true,
+    marksScored: {
+        type: String,
+        require: true,
     },
     resultOf: {
         type: mongoose.Schema.Types.ObjectId,
@@ -32,4 +24,4 @@ const resultSchema = new mongoose.Schema({
 
 const Result = mongoose.model("result", resultSchema)
 
-module.exports = resultSchema;
+module.exports = Result;
