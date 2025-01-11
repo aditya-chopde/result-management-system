@@ -17,6 +17,13 @@ const Dashboard = () => {
     });
   };
 
+  const handleDeleteStudent = async (id) =>{
+    await api.post(`/create/student/delete/${id}`).then((res)=>{
+      alert(res.data.message)
+      getAllStudents()
+    })
+  }
+
   useEffect(() => {
     if (token != id) {
       navigate("/login");
@@ -56,7 +63,7 @@ const Dashboard = () => {
                     <td className="border-all gap-3 realtive">
                       <button className="px-3 transition-all hover:bg-blue-400 bg-blue-500 text-white my-2 mr-2">Add Result</button>
                       <button className="px-3 bg-yellow-500 text-white my-2 mr-2 transition-all hover:bg-yellow-400" onClick={()=> navigate(`/edit/student/${item._id}`)}>Edit</button>
-                      <button className="px-3 transition-all hover:bg-red-400 bg-red-500 text-white my-2 mr-2">Delete</button>
+                      <button className="px-3 transition-all hover:bg-red-400 bg-red-500 text-white my-2 mr-2" onClick={()=> handleDeleteStudent(item._id)}>Delete</button>
                     </td>
                   </tr>
                 ))}

@@ -64,6 +64,16 @@ const handleCreateStudent = async (req, res) => {
     }
 }
 
+const handleDeleteStudent = async (req, res)=>{
+    try {
+        const {id} = req.params;
+        const deleteStudent = await Student.findByIdAndDelete(id)
+        return res.json({success: true, message: "Student Deleted Successfully", deletedStudent: deleteStudent})
+    } catch (err) {
+        return res.json({success: false, message: "Error Ocuurred", error: err.message})        
+    }
+}
+
 const handleGetSingleSchool = async (req, res) => {
     try {
         const { id } = req.params;
@@ -138,4 +148,5 @@ module.exports = {
     handleSchoolEdit,
     handleStudentEdit,
     getStudents,
+    handleDeleteStudent,
 }
