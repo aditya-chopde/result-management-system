@@ -15,6 +15,17 @@ const createResult = async (req, res)=>{
     }
 }
 
+const getAllSubject = async (req, res)=>{
+    try {
+        const {id} = req.params;
+        const getSubject = await Result.find({resultOf: id});
+        return res.json({success: true, message: "Data Fetched", subjects: getSubject});
+    } catch (error) {
+        return res.json({success: false, message: "Error Ocurred", error: error.message})
+    }
+}
+
 module.exports = {
     createResult,
+    getAllSubject,
 }
