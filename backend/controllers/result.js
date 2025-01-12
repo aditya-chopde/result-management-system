@@ -40,11 +40,11 @@ const handleSubjectDelete = async (req, res) => {
 const handleSeeResult = async (req, res) => {
     try {
         const { schoolName, studentName, studentRollNumber } = req.body;
-        const findSchool = await School.find({ schoolName })
+        const findSchool = await School.findOne({ schoolName })
         const findStudent = await Student.findOne({ studentName, studentRollNumber })
         const subject = findStudent._id;
         const findResult = await Result.find({ resultOf: subject })
-        return res.json({ success: true, message: "Data Fetched", school: findSchool, student: findStudent, subject: findResult })
+        return res.json({ success: true, message: "Data Fetched", school: findSchool, student: findStudent, subject: findResult, studentId: subject })
     } catch (error) {
         return res.json({ success: false, message: "Error Ocuured", error: error.message })
     }
