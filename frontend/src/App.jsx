@@ -7,9 +7,9 @@ import Login from './components/Login';
 import AddStudent from './components/AddStudent';
 import EditStudent from './components/EditStudent';
 import AddResult from './components/AddResult';
+import SeeResult from './components/SeeResult';
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
@@ -22,6 +22,7 @@ function App() {
         <Route path="/add/student/:id" element={<AddStudent/>} />
         <Route path="/edit/student/:id" element={<EditStudent/>} />
         <Route path="/add/result/:id" element={<AddResult/>} />
+        <Route path="/s/result" element={<SeeResult/>} />
       </Routes>
     </Router>
     </>
