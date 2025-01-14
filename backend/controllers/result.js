@@ -40,13 +40,40 @@ const handleSubjectDelete = async (req, res) => {
 const handleSeeResult = async (req, res) => {
     try {
         const { schoolName, studentName, studentRollNumber } = req.body;
-        const findSchool = await School.findOne({ schoolName })
-        const findStudent = await Student.findOne({ studentName, studentRollNumber })
-        const subject = findStudent._id;
-        const findResult = await Result.find({ resultOf: subject })
-        return res.json({ success: true, message: "Data Fetched", school: findSchool, student: findStudent, subject: findResult, studentId: subject })
+        
+        // Check if school exists
+        const findSchool = await School.findOne({ schoolName });
+        if (!findSchool) {
+            return res.json({ success: false, message: "School not found" });
+        }
+
+        // Check if student exists
+        const findStudent = await Student.findOne({ 
+            studentName, 
+            studentRollNumber,
+            school: findSchool._id // Ensure student belongs to the school
+        });
+        if (!findStudent) {
+            return res.json({ success: false, message: "Student not found" });
+        }
+
+        // Get student's results
+        const findResult = await Result.find({ resultOf: findStudent._id });
+        
+        return res.json({ 
+            success: true, 
+            message: "Data Fetched", 
+            school: findSchool, 
+            student: findStudent, 
+            results: findResult,
+            studentId: findStudent._id 
+        });
     } catch (error) {
-        return res.json({ success: false, message: "Error Ocuured", error: error.message })
+        return res.json({ 
+            success: false, 
+            message: "Error Occurred", 
+            error: error.message 
+        });
     }
 }
 
