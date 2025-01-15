@@ -18,8 +18,12 @@ const SeeResult = () => {
     };
 
     await api.post("/result/watch", formData).then((res) => {
-      localStorage.setItem("studentId", res.data.studentId)
-      navigate(`/s/result/${res.data.studentId}`, {state: res.data});
+      if(res.data.success){
+        localStorage.setItem("studentId", res.data.studentId)
+        navigate(`/s/result/${res.data.studentId}`, {state: res.data});
+      }else{
+        alert(res.data.message)
+      }
     });
   };
 

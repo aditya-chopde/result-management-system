@@ -51,13 +51,12 @@ const handleSeeResult = async (req, res) => {
         const findStudent = await Student.findOne({ 
             studentName, 
             studentRollNumber,
-            school: findSchool._id // Ensure student belongs to the school
+            studentOf: findSchool._id // Ensure student belongs to the school
         });
+        
         if (!findStudent) {
             return res.json({ success: false, message: "Student not found" });
         }
-
-        // Get student's results
         const findResult = await Result.find({ resultOf: findStudent._id });
         
         return res.json({ 

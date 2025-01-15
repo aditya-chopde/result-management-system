@@ -8,7 +8,7 @@ const ShowResult = () => {
   const location = useLocation();
   const data = location.state;
   const school = data.school;
-  const subjects = data.subject;
+  const subjects = data.results;
   const student = data.student;
 
   useEffect(() => {
