@@ -9,6 +9,7 @@ import EditStudent from './components/EditStudent';
 import AddResult from './components/AddResult';
 import SeeResult from './components/SeeResult';
 import ShowResult from './components/ShowResult';
+import Footer from './components/Footer';
 
 function App() {
 
@@ -26,6 +27,7 @@ function App() {
         <Route path="/s/result" element={<SeeResult/>} />
         <Route path="/s/result/:id" element={<ShowResult/>} />
       </Routes>
+      <Footer/>
     </Router>
     </>
   )
