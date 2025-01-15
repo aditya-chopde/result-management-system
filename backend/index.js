@@ -21,6 +21,8 @@ app.use('/result', result)
 //Database Connection 
 connectDb(process.env.MONGO_URL).then(()=>{
     console.log("DB Connected")
+}).catch((error)=>{
+    console.log("Error Occurred: " + error.message)
 })
 
 
