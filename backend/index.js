@@ -19,7 +19,7 @@ app.use("/create", create)
 app.use('/result', result)
 
 //Database Connection 
-connectDb(process.end.MONGO_URL).then(()=>{
+connectDb(process.env.MONGO_URL).then(()=>{
     console.log("DB Connected")
 })
 
