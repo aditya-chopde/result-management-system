@@ -6,9 +6,14 @@ const SeeResult = () => {
   const [schoolName, setSchoolName] = useState("");
   const [studentName, setStudentName] = useState("");
   const [studentRollNumber, setStudentRollNumber] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [bgColor, setBgColor] = useState(false)
+  
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
+    setIsSubmitting(true)
+    setBgColor(true)
     e.preventDefault();
 
     const formData = {
@@ -18,6 +23,8 @@ const SeeResult = () => {
     };
 
     await api.post("/result/watch", formData).then((res) => {
+    setBgColor(false)
+    setIsSubmitting(false)
       if(res.data.success){
         localStorage.setItem("studentId", res.data.studentId)
         navigate(`/s/result/${res.data.studentId}`, {state: res.data});
@@ -72,9 +79,10 @@ const SeeResult = () => {
               <div>
                 <button
                   type="submit"
-                  className="w-full my-2 py-2 text-white bg-blue-500 rounded-md"
+                  disabled={isSubmitting}
+                  className={`w-full my-2 py-2 text-white ${bgColor?"bg-blue-400":"bg-blue-500"} rounded-md`}
                 >
-                  See Result
+                  {isSubmitting?"Submitting...":"Submit"}
                 </button>
               </div>
             </form>
