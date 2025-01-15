@@ -56,6 +56,7 @@ const CreateSchool = () => {
                 placeholder="Enter school name"
                 className="input-register-school"
                 onChange={(e) => setName(e.target.value)}
+                required
               />
             </div>
             <div>
@@ -67,6 +68,7 @@ const CreateSchool = () => {
                 type="text"
                 placeholder="Enter email"
                 className="input-register-school"
+                required
               />
             </div>
             <div>
@@ -78,6 +80,7 @@ const CreateSchool = () => {
                 type="text"
                 placeholder="Enter location"
                 className="input-register-school"
+                required
               />
             </div>
             <div className="relative">
@@ -88,6 +91,7 @@ const CreateSchool = () => {
                 alt="togglePassword_icon"
                 className="w-5 absolute right-[8px] top-[2.5rem] cursor-pointer"
                 onClick={() => setTogglePass(!togglePass)}
+                required
               />
               <input
                 type={togglePass ? "password" : "text"}
@@ -95,15 +99,16 @@ const CreateSchool = () => {
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="Enter Password"
                 className="input-register-school"
+                required
               />
             </div>
             <div>
               <button
                 disabled={isDisabled}
-                className="w-full my-3 py-2 text-white bg-blue-600 rounded-md"
+                className={`w-full my-3 py-2 text-white ${isDisabled?"bg-blue-500":"bg-blue-600"} rounded-md`}
                 type="submit"
               >
-                Register
+                {isDisabled?"Registering...":"Register"}
               </button>
             </div>
           </form>
