@@ -12,7 +12,7 @@ const Navbar = () => {
             <ul className="flex flex-row gap-3 items-center">
                 <li>Home</li>
                 <li>About</li>
-                <li>Contact</li>
+                <li><Link to="/s/result">See Result</Link></li>
                 <li className="border border-black rounded-full px-8 transition-all hover:bg-black hover:text-white cursor-pointer py-1">
                   <Link to="/login">Login</Link>
                 </li>
